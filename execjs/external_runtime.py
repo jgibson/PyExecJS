@@ -14,6 +14,7 @@ import six
 import execjs
 import execjs._json2 as _json2
 import execjs._runner_sources as _runner_sources
+from execjs._misc import encode_unicode_codepoints
 
 
 class ExternalRuntime:
@@ -193,24 +194,6 @@ def _which(command):
     if not path:
         return None
     return [path] + args
-
-
-def encode_unicode_codepoints(str):
-    r"""
-    >>> encode_unicode_codepoints("a") == 'a'
-    True
-    >>> ascii = ''.join(chr(i) for i in range(0x80))
-    >>> encode_unicode_codepoints(ascii) == ascii
-    True
-    >>> encode_unicode_codepoints('\u4e16\u754c') == '\\u4e16\\u754c'
-    True
-    """
-    codepoint_format = '\\u{0:04x}'.format
-
-    def codepoint(m):
-        return codepoint_format(ord(m.group(0)))
-
-    return re.sub('[^\x00-\x7f]', codepoint, str)
 
 
 node = ExternalRuntime(name="Node.js (V8)", command=['node'], encoding='UTF-8', runner_source=_runner_sources.Node)

@@ -132,6 +132,7 @@ def compile(source):
 
 _runtimes = OrderedDict()
 register('PyV8', pyv8runtime.PyV8Runtime())
+register('PyQt5', pyv8runtime.PyV8Runtime())
 
 if external_runtime.node.is_available():
     register("Node", external_runtime.node)

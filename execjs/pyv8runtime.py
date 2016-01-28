@@ -1,11 +1,19 @@
+import json
+
+import execjs
+import execjs.unavailable_runtime
+from execjs._misc import encode_unicode_codepoints
+
+
+try:
+    import PyV8
+except ImportError:
+    self.__class__ = execjs.unavailable_runtime.UnavailableRuntime
+else:
+    self._is_available = True
+
 class PyV8Runtime:
     def __init__(self):
-        try:
-            import PyV8
-        except ImportError:
-            self._is_available = False
-        else:
-            self._is_available = True
 
     @property
     def name(self):
@@ -21,7 +29,7 @@ class PyV8Runtime:
         return self.Context(source)
 
     def is_available(self):
-        return self._is_available
+        return True
 
     class Context:
         def __init__(self, source=""):
@@ -46,11 +54,11 @@ class PyV8Runtime:
                 try:
                     script = engine.compile(source)
                 except js_errors as e:
-                    raise RuntimeError(e)
+                    raise execjs.RuntimeError(e)
                 try:
                     value = script.run()
                 except js_errors as e:
-                    raise ProgramError(e)
+                    raise execjs.ProgramError(e)
                 return self.convert(value)
 
         def eval(self, source):
@@ -78,6 +86,3 @@ class PyV8Runtime:
                 return ret
             else:
                 return obj
-
-
-
