@@ -580,7 +580,7 @@ phantom.exit();
 
 _runtimes['JavaJavaScript'] = ExternalRuntime(
     name="JavaJavaScript",
-    command=["jrunscript"],
+    command=["jjs"],
     runner_source=r"""(function(program, execJS) { execJS(program) })(function() { #{source}
 }, function(program) {
   #{json2_source}
