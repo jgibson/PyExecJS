@@ -9,9 +9,6 @@ env:
     - "SLIMERJSLAUNCHER=$(which firefox)"
     - "DISPLAY=:99.0"
     - "PATH=$TRAVIS_BUILD_DIR/slimerjs:$PATH"
-  matrix:
-    - JDK=default
-    - JDK=oraclejdk8
 
 matrix:
   include:

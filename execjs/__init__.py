@@ -551,7 +551,7 @@ for _name, _command in [
 ]:
     _runtimes[_name] = ExternalRuntime(
         name=_name,
-        command=[_command, '--debug=true'],
+        command=[_command],
         runner_source=r"""
 (function(program, execJS) { execJS(program) })(function() {
   return eval(#{encoded_source});
