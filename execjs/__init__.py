@@ -247,7 +247,6 @@ class ExternalRuntime:
         if ret == 0:
             return stdoutdata
         else:
-            print 'Hi stdoutdata: %s' % stdoutdata
             raise RuntimeError(stdoutdata)
 
     class Context:
